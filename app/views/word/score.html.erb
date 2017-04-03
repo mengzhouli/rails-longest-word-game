@@ -8,11 +8,20 @@
     French Translation: <%= @results[:translation]%>
   </li>
   <li>
-    Time Taken: <%= @results[:time].round(2) %> seconds
+    Time Taken: <%= @results[:time] %> seconds
   </li>
   <li>
     Score: <%= @results[:score]%>
   </li>
 </ul>
 
-<%= link_to "Play Again", game_path %>
+<%= link_to "Play Again", game_path(:name => session[:user]) %>
+<hr>
+<%= link_to "New Player", index_path %>
+
+<ul>
+  <li>Your Name: <%= session[:user] %></li>
+  <li>Games Played: <%= session[:games]%></li>
+  <li>Running Total: <%= session[:score]%></li>
+  <li>Score Average: <%= session[:avg]%></li>
+</ul>

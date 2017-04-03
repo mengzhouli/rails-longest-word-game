@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
+  get 'index', to: 'word#index'
   get 'game', to: 'word#game'
   get 'score', to: 'word#score'
   post 'score', to: 'word#score'

@@ -3,9 +3,13 @@ require 'json'
 require 'time'
 
 WORDS = File.read('/usr/share/dict/words').upcase.split("\n")
-
 class WordController < ApplicationController
+  def index
+    session[:score] = 0
+    session[:games] = 0
+  end
   def game
+    session[:user] = params[:name]
     @grid = (0...9).map { (65 + rand(26)).chr }
   end
 
@@ -15,6 +19,9 @@ class WordController < ApplicationController
     @attempt = params[:guess]
     @grid = params[:grid]
     @results = run_game(@attempt, @grid, @start, @end)
+    session[:games] += 1
+    session[:score] += @results[:score]
+    session[:avg] = session[:score] / session[:games]
   end
 
   def run_game(attempt, grid, start_time, end_time)
@@ -25,7 +32,7 @@ class WordController < ApplicationController
       { translation: nil, score: 0, message: "not in the grid" }
     else
       translation = translate(attempt)
-      total = -(end_time - start_time).to_i + attempt.length
+      total = -(end_time - start_time).to_i + 5* attempt.length
       { time: end_time - start_time, translation: translation, score: total, message: "well done" }
     end
   end
