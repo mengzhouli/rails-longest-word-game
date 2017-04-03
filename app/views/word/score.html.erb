@@ -1,6 +1,18 @@
 <h1>Word#score</h1>
 <p>Find me in app/views/word/score.html.erb</p>
 
-<p><%= @results %></p>
+<ul>
+  <li><%= @results[:message]%></li>
+  <li>Your Attempt: <%= @attempt%></li>
+  <li>
+    French Translation: <%= @results[:translation]%>
+  </li>
+  <li>
+    Time Taken: <%= @results[:time].round(2) %> seconds
+  </li>
+  <li>
+    Score: <%= @results[:score]%>
+  </li>
+</ul>
 
 <%= link_to "Play Again", game_path %>
