@@ -1,0 +1,21 @@
+<% @start = Time.now %>
+<h1>Word#game</h1>
+<p>Find me in app/views/word/game.html.erb</p>
+
+<h1>Welcome to the longest word game!</h1>
+<hr>
+<h2>Here is your grid:</h2>
+<h1>
+  <% @grid.each do |char| %>
+    <%= char %>
+  <%end%>
+</h1>
+<hr>
+<h2>What's your best shot?</h2>
+<form action="/score" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="start" value="<%=@start%>">
+  <input type="hidden" name="grid" value="<%=@grid%>">
+  <input type="text" name="guess">
+  <input type="submit">
+</form>
